@@ -20,15 +20,6 @@ map<int, int> months =
 	{12,31}
 };
 
-int getNextMonth(int curr)
-{
-	int next = curr + 1;
-	if (next > 12)
-		return 1;
-	else
-		return next;
-}
-
 int days(int month)
 {
 	if (month <= 12 && month >= 1)
@@ -51,26 +42,30 @@ ostream& operator << (ostream &os, const Date &date) {
 
 bool  greaterThanMonth(Date date1, Date date2)
 {
+	
 	int diff = 0;
 	int date1total = date1.year*10000 + date1.month*100 + date1.day;
 	int date2total = date2.year*10000 + date2.month*100 + date2.day;
+	cout << "date1total: " << date1total << endl;
+	cout << "date2total: " << date2total << endl;
+	
 	bool date1greater = (date1total > date2total);
-	
-	
-	if (date1greater) 
-		diff = date1total - date2total;
-	else
-		diff = date2total - date1total;
-		
-		
-	int onemonthbetween = 0;
+
+	Date tmpDate;
 	if (date1greater)
-		onemonthbetween = days(date2.month); 
+		tmpDate = date2;
 	else
-		onemonthbetween = days(date1.month); 
-		
-		
-	if (diff > onemonthbetween)
+		tmpDate = date1;
+
+	tmpDate.month = tmpDate.month + 1;
+	if (tmpDate.month>12)
+	{
+		tmpDate.month = 1;
+		tmpDate.year = tmpDate.year + 1;
+	}
+	int tmpDatetotal = tmpDate.year*10000 + tmpDate.month*100 + tmpDate.day;
+	
+	if (tmpDatetotal < date2total)
 		return true;
 	else
 		return false;
