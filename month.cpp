@@ -1,32 +1,7 @@
 #include <stdio.h>
 #include <iostream>
-#include <map>
 
 using namespace std;
-
-map<int, int> months = 
-{
-	{1,31},
-	{2,28},
-	{3,31},
-	{4,30},
-	{5,31},
-	{6,30},
-	{7,31},
-	{8,31},
-	{9,30},
-	{10,31},
-	{11,30},
-	{12,31}
-};
-
-int days(int month)
-{
-	if (month <= 12 && month >= 1)
-		return months[month];
-	else
-		return -1;
-}
 
 typedef struct Date
 {
@@ -49,7 +24,8 @@ bool  greaterThanMonth(Date date1, Date date2)
 	cout << "date1total: " << date1total << endl;
 	cout << "date2total: " << date2total << endl;
 	
-	bool date1greater = (date1total > date2total);
+	bool date1greater = (date1total > date2total); 
+	cout << "date1greater: " << date1greater << endl;
 
 	Date tmpDate;
 	if (date1greater)
@@ -65,7 +41,10 @@ bool  greaterThanMonth(Date date1, Date date2)
 	}
 	int tmpDatetotal = tmpDate.year*10000 + tmpDate.month*100 + tmpDate.day;
 	
-	if (tmpDatetotal < date2total)
+	cout << "tmpDatetotal: " << tmpDatetotal << endl;
+	
+	if ( (date1greater && (tmpDatetotal < date1total)) ||
+        (!date1greater && (tmpDatetotal < date2total)))
 		return true;
 	else
 		return false;
