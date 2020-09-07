@@ -17,8 +17,12 @@ string naiveFindCommonSubstring(vector<string> strings)
 	
 	for (int i = 0; i < strings.size(); i++)
     {
-		for (int j = i+1; j < strings.size(); j++)
+		for (int j =strings.size()-1; j >= 0; j--)
 		{
+			//Don't compare to itself....
+			if (i == j)
+				continue;
+				
 			string string1 = strings[i];
 			string string2 = strings[j];
 			
@@ -32,6 +36,7 @@ string naiveFindCommonSubstring(vector<string> strings)
 			{
 				string candidateSubstring("");
 				string testingSubstring("");
+				
 				for (int l = 0; k < string1.length() && l < string2.length(); l++)
 				{
 					
@@ -75,7 +80,6 @@ int main (int argc, char** argv)
 {
 	vector<string> strings;
 
-	//only works for two at the moment
 	for (int i = 1; i <= 2; i++)
 	{
 		string string(argv[i]);
